@@ -6,8 +6,8 @@ import Sidebar from "@/components/layout/Sidebar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "Artist Portfolio",
-  description: "Artist Portfolio Web Application",
+  title: "ArtistGo",
+  description: "A Next.js-based portfolio for a contemporary artist",
 };
 
 export default function RootLayout({
