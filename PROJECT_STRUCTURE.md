@@ -35,7 +35,7 @@ Next.js 13+ App Router 기반의 라우팅 및 페이지 구조입니다.
 | `template.tsx` | 페이지 전환 시 상태를 초기화하거나 애니메이션을 적용할 때 사용하는 템플릿입니다. |
 | `about/` | `/about` 경로에 해당하는 페이지 폴더입니다. |
 | `works/` | `/works` 경로에 해당하는 작품 갤러리 페이지 폴더입니다. |
-| `works/[id]/` | `/works/123` 처럼 개별 작품의 상세 페이지를 위한 동적 라우트 폴더입니다. |
+| `works/[id]/` | `/works/123` 처럼 개별 작품의 상세 페이지를 위한 동적 라우트 폴더입니다. 이 폴더에는 `page.tsx` (서버 컴포넌트)와 `WorkDetailClient.tsx` (클라이언트 컴포넌트)가 포함되어 있습니다. `page.tsx`는 `generateStaticParams`를 사용하여 정적 페이지를 생성하고, `WorkDetailClient.tsx`는 클라이언트 측에서 상호작용을 처리합니다. |
 | `exhibitions/` | `/exhibitions` 경로에 해당하는 전시 이력 페이지 폴더입니다. |
 | `contact/` | `/contact` 경로에 해당하는 문의 페이지 폴더입니다. |
 
