@@ -2,33 +2,23 @@
 
 import Link from 'next/link';
 import WorkCard from '@/components/ui/WorkCard';
-
-// Mock Data for Featured Works
-const featuredWorks = [
-  {
-    id: '1',
-    title: 'Abstract Composition I',
-    category: 'Painting',
-    year: 2024,
-    imageUrl: 'https://placehold.co/600x800/222/fff?text=Abstract+I',
-  },
-  {
-    id: '2',
-    title: 'Urban Isolation',
-    category: 'Photography',
-    year: 2023,
-    imageUrl: 'https://placehold.co/600x800/333/fff?text=Urban',
-  },
-  {
-    id: '3',
-    title: 'Neon Dreams',
-    category: 'Installation',
-    year: 2025,
-    imageUrl: 'https://placehold.co/600x800/444/fff?text=Neon',
-  },
-];
+import { supabase } from '@/lib/supabase';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [featuredWorks, setFeaturedWorks] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchFeaturedWorks = async () => {
+      const { data } = await supabase
+        .from('works')
+        .select('*')
+        .eq('featured', true);
+      setFeaturedWorks(data || []);
+    };
+    fetchFeaturedWorks();
+  }, []);
+
   return (
     <div className="flex flex-col items-center w-full">
       {/* Hero Section */}
@@ -64,7 +54,7 @@ export default function Home() {
               title={work.title}
               year={work.year}
               category={work.category}
-              imageUrl={work.imageUrl}
+              images={work.images}
             />
           ))}
         </div>

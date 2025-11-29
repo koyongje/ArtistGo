@@ -33,14 +33,18 @@ export default function WorkDetailClient({ work }: { work: any }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Image Section */}
-        <div className="relative aspect-[4/5] w-full bg-neutral-100 dark:bg-neutral-900 rounded-sm overflow-hidden">
-          <Image
-            src={work.imageUrl}
-            alt={work.title}
-            fill
-            className="object-cover"
-            priority
-          />
+        <div className="grid grid-cols-1 gap-4">
+          {work.images.map((image: string, index: number) => (
+            <div key={index} className="relative aspect-[4/5] w-full bg-neutral-100 dark:bg-neutral-900 rounded-sm overflow-hidden">
+              <Image
+                src={image}
+                alt={`${work.title} - Image ${index + 1}`}
+                fill
+                className="object-cover"
+                priority={index === 0}
+              />
+            </div>
+          ))}
         </div>
 
         {/* Info Section */}

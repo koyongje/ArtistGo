@@ -8,11 +8,11 @@ interface WorkCardProps {
   id: string;
   title: string;
   year: number;
-  imageUrl: string;
+  images: string[];
   category: string;
 }
 
-export default function WorkCard({ id, title, year, imageUrl, category }: WorkCardProps) {
+export default function WorkCard({ id, title, year, images, category }: WorkCardProps) {
   return (
     <Link href={`/works/${id}`}>
       <motion.div
@@ -22,7 +22,7 @@ export default function WorkCard({ id, title, year, imageUrl, category }: WorkCa
       >
         <div className="relative aspect-[4/5] w-full bg-neutral-200 dark:bg-neutral-800">
              <Image
-              src={imageUrl}
+              src={images[0]}
               alt={title}
               fill
               className="object-cover transition-opacity duration-300 group-hover:opacity-80"
