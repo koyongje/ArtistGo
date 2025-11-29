@@ -1,7 +1,7 @@
 {
-  "name": "artist-portfolio",
+  "name": "artist-go",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Next.js-based portfolio for a contemporary artist",
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
