@@ -79,9 +79,6 @@ jobs:
             NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
             NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
-      - name: List output directory
-        run: ls -R ./out
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
