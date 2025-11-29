@@ -73,5 +73,20 @@ create policy "Enable full access for authenticated users" on public.exhibitions
 create policy "Enable full access for authenticated users" on public.profile for all using (auth.role() = 'authenticated');
 create policy "Enable full access for authenticated users" on public.media_archive for all using (auth.role() = 'authenticated');
 
+-- Contact Submissions Table
+create table public.contact_submissions (
+  id uuid not null default gen_random_uuid(),
+  created_at timestamp with time zone not null default now(),
+  name text not null,
+  email text not null,
+  message text not null,
+  constraint contact_submissions_pkey primary key (id)
+);
+
+-- RLS Policies for Contact Submissions
+alter table public.contact_submissions enable row level security;
+create policy "Enable read access for authenticated users" on public.contact_submissions for select using (auth.role() = 'authenticated');
+create policy "Enable insert for all users" on public.contact_submissions for insert with check (true);
+
 -- Storage Buckets (Run these in Storage section or via SQL if supported by extensions)
 -- insert into storage.buckets (id, name, public) values ('portfolio', 'portfolio', true);

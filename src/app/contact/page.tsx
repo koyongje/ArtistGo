@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Send } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -10,9 +11,16 @@ export default function ContactPage() {
     e.preventDefault();
     setStatus('submitting');
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setStatus('success');
+    const formData = new FormData(e.currentTarget);
+    const { name, email, message } = Object.fromEntries(formData.entries());
+
+    const { error } = await supabase.from('contact_submissions').insert({ name, email, message });
+
+    if (error) {
+      setStatus('error');
+    } else {
+      setStatus('success');
+    }
   }
 
   return (
@@ -42,6 +50,7 @@ export default function ContactPage() {
             <input
               type="text"
               id="name"
+              name="name"
               required
               className="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-sm focus:ring-neutral-500 focus:border-neutral-500 block w-full p-3 dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-400 dark:text-white"
               placeholder="Your Name"
@@ -52,6 +61,7 @@ export default function ContactPage() {
             <input
               type="email"
               id="email"
+              name="email"
               required
               className="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-sm focus:ring-neutral-500 focus:border-neutral-500 block w-full p-3 dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-400 dark:text-white"
               placeholder="name@example.com"
@@ -61,6 +71,7 @@ export default function ContactPage() {
             <label htmlFor="message" className="block mb-2 text-sm font-medium text-neutral-900 dark:text-white">Message</label>
             <textarea
               id="message"
+              name="message"
               rows={5}
               required
               className="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-sm focus:ring-neutral-500 focus:border-neutral-500 block w-full p-3 dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-400 dark:text-white"
@@ -79,6 +90,11 @@ export default function ContactPage() {
               </>
             )}
           </button>
+          {status === 'error' && (
+            <p className="text-red-500 text-sm mt-2">
+              There was an error sending your message. Please try again later.
+            </p>
+          )}
         </form>
       )}
     </div>
