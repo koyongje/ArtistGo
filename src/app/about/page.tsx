@@ -38,7 +38,7 @@ export default function AboutPage() {
           <div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white">About the Artist</h1>
             <div className="prose dark:prose-invert max-w-none text-neutral-600 dark:text-neutral-300 space-y-4">
-              <p>{profile.bio_en}</p>
+              <p>{profile.bio_en.replace("Artist Name", "ARTIST NAME")}</p>
             </div>
           </div>
 
